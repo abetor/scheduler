@@ -1,0 +1,22 @@
+__pycache__/
+.pytest_cache/
+*.egg-info/
+.DS_Store
+.idea/
+.vscode/
+.claude/
+.agent/
+build/
+dist/
+*.log
+/logs/
+/state/
+/output/
+
+.env
+.env.*
+!.env.sample
+!.env.example
+
+# Local development environment created by the quick start.
+/.venv/

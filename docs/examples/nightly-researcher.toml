@@ -1,0 +1,17 @@
+# Long-running resumable research job. Install the child CLI independently and
+# provide RESEARCH_TOPIC through the service environment. Model selection remains
+# the child tool's responsibility and is intentionally not pinned by the scheduler.
+command = "researcher resume \"$RESEARCH_TOPIC\" --adapter codex"
+every = "6h"
+
+# Exit 75 waits for the subscription window without consuming retries. A real
+# fail or transient receives one short retry, then returns to the regular schedule.
+quota_wait = "2h"
+retries = 1
+retry_delay = "10m"
+timeout = 14400
+notify = "abnormal"
+stall_after = "90m"
+
+# If resume returns 0 forever for an already completed topic, point RESEARCH_TOPIC
+# to new work or disable the job. The scheduler treats each exit 0 as routine ok.

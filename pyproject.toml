@@ -1,0 +1,27 @@
+[project]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["python", "cli", "job-scheduler", "task-scheduler", "process-management", "automation", "fault-tolerance"]
+name = "tool-scheduler"
+version = "0.1.0"
+description = "Local supervisor for scheduled CLI jobs, retries, quota windows, state, and logs"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+tool-scheduler = "tool_scheduler.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["tool_scheduler*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project.urls]
+Repository = "https://github.com/abetor/scheduler"
+Documentation = "https://github.com/abetor/scheduler#readme"
+Issues = "https://github.com/abetor/scheduler/issues"

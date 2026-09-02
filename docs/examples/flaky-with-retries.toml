@@ -1,0 +1,7 @@
+# Recurring command with retry and backoff for a transient step. Transient
+# outcomes and ordinary failures retry through retry_delay, then return to every.
+command = "curl -fsS https://example.com/health || exit 111"
+every = "30m"
+retries = 3
+retry_delay = "2m"
+timeout = 60  # Prevent a stuck command from holding its run forever.

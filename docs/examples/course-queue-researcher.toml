@@ -1,0 +1,23 @@
+# Process the next unfinished course from a queue, then let the following tick
+# pick up the next item. All repository and data paths come from the service
+# environment rather than a specific machine. An empty queue exits 0 and remains
+# a quiet routine success.
+command = "researcher course-queue --queue \"$COURSE_QUEUE\" --dumps \"$COURSE_DUMPS\" --adapter codex --verify-adapter claude --effort high --pages-effort xhigh"
+status = "researcher course-queue --queue \"$COURSE_QUEUE\" --dumps \"$COURSE_DUMPS\" --dry-run"
+every = "1h"
+
+# 76 means the import plan awaits review. Exit 1 or 77 means the course requires
+# operator attention. Resume with `tool-scheduler --home <home> run <job>`.
+stop_codes = [1, 76, 77]
+stop_on_success = false
+
+# Exit 75 waits for a subscription window without consuming retries. Exit 111
+# receives one short retry. A large course may need several hours per invocation.
+quota_wait = "25m"
+retries = 1
+retry_delay = "2m"
+timeout = 43200
+stall_after = "90m"
+
+# The invoked tool emits routine progress; the scheduler reports anomalies only.
+notify = "abnormal"

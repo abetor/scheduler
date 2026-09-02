@@ -1,0 +1,13 @@
+# A tool without structured 0/75/111 exit codes can identify subscription-budget
+# exhaustion from output. Custom patterns are case-insensitive and augment the
+# built-in quota signals. A match waits for quota_wait without consuming retries.
+#
+# Keep the boundary precise: quota means an exhausted subscription budget that is
+# remedied only by waiting for a reset window. Burst throttling such as 429,
+# "too many requests", and "rate limit" is transient and belongs on the ordinary
+# retries/retry_delay path. Add only reset-window phrases here.
+command = "python3 /path/to/legacy-tool.py --run"
+every = "2h"
+quota_patterns = ["daily cap reached", "try again tomorrow"]
+quota_wait = "60m"
+enabled = false  # Keep the template disabled until its command is configured.

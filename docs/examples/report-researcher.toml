@@ -1,0 +1,16 @@
+# Build one report after a research topic reaches terminal state. RESEARCH_TOPIC
+# and REPORT_PATH are service-environment paths. A completed report stops with 76;
+# delete the output and explicitly run the job again to rebuild it.
+command = "researcher report \"$RESEARCH_TOPIC\" --out \"$REPORT_PATH\" --adapter codex --guard"
+status = "test -f \"$REPORT_PATH\" && ls -la \"$REPORT_PATH\" || echo 'report has not been written yet'"
+every = "1h"
+stop_codes = [1, 76]
+stop_on_success = false
+
+quota_wait = "25m"
+retries = 1
+retry_delay = "2m"
+timeout = 14400
+
+# The invoked tool emits routine report events; the scheduler reports anomalies.
+notify = "abnormal"

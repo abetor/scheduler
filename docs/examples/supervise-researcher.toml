@@ -1,0 +1,22 @@
+# One-shot supervisor for a long research run. Install the child CLI independently
+# and pass RESEARCH_TOPIC through the service environment. The scheduler does not
+# duplicate the child tool's phase logic; it reacts only to the final exit code.
+command = "researcher resume \"$RESEARCH_TOPIC\" --adapter codex --supervise --fatal-retries 0"
+status = "researcher status \"$RESEARCH_TOPIC\" --short"
+every = "1h"
+
+# Exit 1 means the inner supervisor exhausted fatal retries, 76 requires review,
+# and 77 is a durable gate refusal. A fatal outcome from the tool = stop.
+stop_codes = [1, 76, 77]
+
+# Exit 0 means the topic is done, so stop this one-shot supervisor instead of
+# waking an already completed topic on every interval.
+stop_on_success = true
+
+# Quota does not consume retries. A transient or failure gets one short retry.
+quota_wait = "2h"
+retries = 1
+retry_delay = "1m"
+timeout = 14400
+notify = "abnormal"
+stall_after = "90m"

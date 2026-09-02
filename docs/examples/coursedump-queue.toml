@@ -1,0 +1,14 @@
+# One-shot supervisor for a transcription queue. The queue and durable state
+# belong to the invoked tool; their location is passed explicitly through
+# COURSEDUMP_DATA. A concurrent queue worker exits cleanly so the next hourly tick
+# can check again.
+command = "coursedump --data \"$COURSEDUMP_DATA\" queue run"
+status = "coursedump --data \"$COURSEDUMP_DATA\" queue status"
+every = "1h"
+stop_on_success = true
+stop_codes = [1, 130]
+notify = "abnormal"
+stall_after = "90m"
+
+# Bound a full queue invocation. Adjust after inspecting the tool's queue plan.
+timeout = 259200

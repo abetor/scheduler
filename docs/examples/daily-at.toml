@@ -1,0 +1,3 @@
+# Run once per day in the machine's local timezone. at and every are exclusive.
+command = "echo daily-run"
+at = "09:00"

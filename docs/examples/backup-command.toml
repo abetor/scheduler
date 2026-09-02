@@ -1,0 +1,8 @@
+# Minimal command job without an LLM. The command runs through sh -c with the
+# scheduler home as cwd. Configure both directories in the service environment.
+command = "rsync -a --delete \"$SOURCE_DIR/\" \"$BACKUP_DIR/\""
+every = "1d"
+
+# By default, terminal outcomes and failures emit events while routine ok is quiet.
+# Set notify_on_ok = true to emit every successful run.
+# Set notify = "abnormal" when the invoked tool emits its own routine events.

@@ -1,6 +1,6 @@
-# tool-scheduler
+# scheduler
 
-`tool-scheduler` is a local supervisor for recurring command-line jobs. It keeps
+`scheduler` is a local supervisor for recurring command-line jobs. It keeps
 schedules, retry policy, durable state, and logs outside the source repository and
 provides a small operator surface for inspecting, starting, stopping, disabling,
 and re-enabling jobs.
@@ -59,7 +59,9 @@ See [docs/DESIGN.md](docs/DESIGN.md) for the contracts and tradeoffs.
 
 ## Quick start
 
-Python 3.11 or newer is required. The package has no runtime dependencies.
+Python 3.11 or newer is required. The package has no runtime dependencies. The repository
+is `scheduler`; the distribution and CLI are both `tool-scheduler`, and the Python package
+is `tool_scheduler`.
 
 ```bash
 python3 -m venv .venv
@@ -177,7 +179,6 @@ covered by the [test suite](tests/).
   contract, not an operating-system sandbox.
 - Service-manager deployment and real provider quota messages are environment
   dependent and are not exercised by the hermetic test suite.
-- The public source and tests contain no intentional Cyrillic fixtures.
 
 ## Data and credential boundary
 
@@ -206,6 +207,11 @@ Tests use temporary homes and scrub declared credential variables from the inher
 environment. They cover malformed jobs, retry and quota behavior, time zones and
 DST, locking, concurrency, worker adoption and loss, stop escalation, event hooks,
 bounded logs, deterministic JSON interfaces, and the public TOML recipes.
+
+## Provenance
+
+This repository began as a public source snapshot of a personal tool. Earlier local development
+history is not included.
 
 ## License
 

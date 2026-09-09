@@ -1,5 +1,7 @@
 # scheduler
 
+[![Tests](https://github.com/abetor/scheduler/actions/workflows/tests.yml/badge.svg)](https://github.com/abetor/scheduler/actions/workflows/tests.yml)
+
 `scheduler` is a local supervisor for recurring command-line jobs. It keeps
 schedules, retry policy, durable state, and logs outside the source repository and
 provides a small operator surface for inspecting, starting, stopping, disabling,
